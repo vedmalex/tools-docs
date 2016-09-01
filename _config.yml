@@ -3,8 +3,8 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Apollo Server Guide
-subtitle: A guide to using the Apollo GraphQL Server.
+title: Apollo Tools Guide
+subtitle: A guide to using the Apollo GraphQL Tools with React.
 description:
 author:
 language:
@@ -14,46 +14,49 @@ versions:
 sidebar_categories:
   null:
     - index
-    - schemas
-    - queries
-    - resolving
-    - authentication
-    - mutations
-    - subscriptions
-    - transports
-  Tools:
-    - graphql-tools
-    - graphql-tracer
-github_repo: apollostack/client-docs
+  Apollo Server:
+    - apollo-server/index
+    - apollo-server/setup
+    - apollo-server/requests
+    - apollo-server/graphiql
+    - apollo-server/migration
+  GraphQL Tools:
+    - graphql-tools/index
+#    - graphql-tools/guide
+#    - graphql-tools/tools
+    - graphql-tools/generate-schema
+    - graphql-tools/resolvers
+    - graphql-tools/scalars
+    - graphql-tools/mocking
+    - graphql-tools/connectors
+    - graphql-tools/errors
+github_repo: apollostack/server-docs
 content_root: source
 
 logo:
-  desktop: logo/icon-apollo-white-200x200.png
-  mobile: logo/icon-apollo-white-200x200.png
+  nav_mobile: logo/logo-apollo-space.svg
+  title: Apollo Developers
+  subtitle: Developers
 favicon: logo/favicon.png
 
+typescript_api_box:
+  data_file: docs.json
+
 nav_links:
-  'Apollo Project':
-    url: http://www.apollostack.com/
-    partial: illustration-guide
+  'Apollo':
+    url: http://dev.apollodata.com/
     target: _new
-  'Apollo Blog':
-    url: https://medium.com/apollo-stack
-    partial: illustration-compass
-    target: _new
-  'GraphQL Guide':
-    url: http://docs.apollostack.com/graphql
-    partial: illustration-compass
-  'Apollo Client':
-    url: http://docs.apollostack.com/client
-    partial: illustration-compass
-  'Apollo Server':
-    url: http://docs.apollostack.com/server
-    partial: illustration-compass
+  'React':
+    url: http://dev.apollodata.com/react
+  'Core JS':
+    url: http://dev.apollodata.com/core
+  'Tools':
+    url: http://dev.apollodata.com/tools
     active: true
-  'GitHub':
-    url: https://github.com/apollostack
-    partial: illustration-github
+  'Community':
+    url: http://dev.apollodata.com/community
+  'Blog':
+    url: https://medium.com/apollo-stack
     target: _new
 
 social_links:
@@ -66,8 +69,8 @@ apis:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://docs.apollostack.com/server
-root: /server/
+url: http://dev.apollodata.com/tools
+root: /tools/
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 
