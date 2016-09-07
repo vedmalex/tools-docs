@@ -234,7 +234,7 @@ In order for the server to use the resolve functions instead of the mocked schem
 
 ```js
 import express from 'express';
-import { apolloServer } from 'apollo-server';
+import { apolloExpress } from 'apollo-server';
 import Schema from './data/schema';
 import Mocks from './data/mocks';
 import Resolvers from './data/resolvers';
@@ -243,7 +243,7 @@ const GRAPHQL_PORT = 8080;
 
 const graphQLServer = express();
 
-graphQLServer.use('/graphql', apolloServer({
+graphQLServer.use('/graphql', apolloExpress({
   graphiql: true,
   pretty: true,
   schema: Schema,
