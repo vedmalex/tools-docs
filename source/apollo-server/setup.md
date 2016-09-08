@@ -42,6 +42,7 @@ The following code snippet shows how to use Apollo Server with Express:
 
 ```js
 import express from 'express';
+import bodyParser from 'body-parser';
 import { apolloExpress } from 'apollo-server';
 
 const PORT = 3000;
@@ -59,6 +60,7 @@ The following code snippet shows how to use Apollo Server with Connect:
 
 ```js
 import connect from 'express';
+import bodyParser from 'body-parser';
 import { apolloConnect } from 'apollo-server';
 
 const PORT = 3000;
@@ -107,6 +109,7 @@ The following code snippet shows how to use Apollo Server with Koa:
 ```js
 import koa from 'koa';
 import koaRouter from 'koa-router';
+import koaBody from 'koa-bodyparser';
 import { apolloKoa } from 'apollo-server';
 
 const app = new koa();
