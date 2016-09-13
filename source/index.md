@@ -9,12 +9,12 @@ In addition to a set of fully-featured GraphQL clients, the Apollo community mai
 
 - [Apollo Server](/tools/apollo-server), a production-ready Node.js GraphQL server library that supports Express, Connect, Hapi, Koa, and other popular Node HTTP servers, with built-in features like persisted queries, batching, and more. Apollo Server works with any GraphQL client, like Apollo, Relay, Lokka, and more.
 - [graphql-tools](/tools/graphql-tools), a package that provides an alternative approach to constructing a GraphQL.js schema using the GraphQL schema language, rather than using the GraphQL.js type constructors directly. Schemas built with this package are compatible with any GraphQL servers, including our own `apollo-server` and Facebook's `express-graphql`.
-- Todo: add subscriptions server here
+- [graphql-subscriptions](https://github.com/apollostack/graphql-subscriptions), a transport-agnostic JavaScript utility that helps you execute GraphQL subscriptions and attach them to event sources.
+- [subscriptions-transport-ws](https://github.com/apollostack/subscriptions-transport-ws), a websocket server and client for GraphQL subscriptions that works with `graphql-subscriptions` and can be easily used directly in a JavaScript app or wired up to a fully-featured GraphQL client like Apollo or Relay.
 
 ### GraphQL client tools
 
 - [graphql-anywhere](https://github.com/apollostack/graphql-anywhere), the core schema-less GraphQL execution engine of the Apollo JavaScript Client, which lets you build your own powerful GraphQL tools and cache implementations, and works anywhere you can run JavaScript code.
-- Todo: add subscriptions client here
 
 ### Developer tools
 
