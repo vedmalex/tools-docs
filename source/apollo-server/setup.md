@@ -1,13 +1,12 @@
 ---
-title: Setup
+title: Adding a GraphQL endpoint
 order: 202
 description: How to set up Apollo Server
 ---
 
-Apollo Server exports `apolloExpress`, `apolloConnect`, `ApolloHAPI` and `apolloKoa` which can be used as a drop-in to turn your Express, Connect, HAPI or Koa 2 server into a GraphQL server.
+Apollo Server exports the `apolloExpress`, `apolloConnect`, `ApolloHAPI` and `apolloKoa` functions which can be used to add a GraphQL HTTP endpoint to your Express, Connect, HAPI or Koa 2 server.
 
-
-<h2 id="apolloOptions">ApolloOptions</h2>
+<h2 id="apolloOptions">Apollo Server options</h2>
 
 Apollo Server accepts an ApolloOptions object as its single argument. An ApolloOptions object has the following properties:
 
@@ -15,20 +14,28 @@ Apollo Server accepts an ApolloOptions object as its single argument. An ApolloO
 // options object
 const ApolloOptions = {
   schema: GraphQLSchema,
-  context?: any, // value to be used as context in resolvers
+
+  // value to be used as context in resolvers
+  context?: any,
   rootValue?: any,
-  formatError?: Function, // function used to format errors before returning them to clients
-  validationRules?: Array<ValidationRule>, // additional validation rules to be applied to client-specified queries
-  formatParams?: Function, // function applied for each query in a batch to format parameters before passing them to `runQuery`
-  formatResponse?: Function, // function applied to each response before returning data to clients
+
+  // function used to format errors before returning them to clients
+  formatError?: Function,
+
+  // additional validation rules to be applied to client-specified queries
+  validationRules?: Array<ValidationRule>,
+
+  // function applied for each query in a batch to format parameters before passing them to `runQuery`
+  formatParams?: Function,
+
+  // function applied to each response before returning data to clients
+  formatResponse?: Function,
 })
 ```
 
-
-Alternatively, Apollo Server accepts a function which takes the request as input and returns an ApolloOptions object (or a promise for one):
+Alternatively, Apollo Server can accept a function which takes the request as input and returns an ApolloOptions object or a promise that resolves to one:
 
 ```js
-
 // example options function (for express)
 apolloExpress(request => ({
   schema: typeDefinitionArray,

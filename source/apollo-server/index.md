@@ -4,13 +4,7 @@ order: 201
 description: How to install Apollo Server
 ---
 
-Apollo Server is a community driven, flexible, production-ready HTTP JavaScript GraphQL server. You can use it with all popular JavaScript web servers:
-
-- Express
-- Connect
-- HAPI
-- Koa
-- Restify
+Apollo Server is a community driven, flexible, production-ready HTTP JavaScript GraphQL server. You can use it with all popular JavaScript web servers, including Express, Connect, HAPI, and Koa.
 
 Install it with:
 
