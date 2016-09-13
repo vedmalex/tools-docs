@@ -15,7 +15,7 @@ Apollo Server accepts an ApolloOptions object as its single argument. An ApolloO
 const ApolloOptions = {
   schema: GraphQLSchema,
 
-  // value to be used as context in resolvers
+  // values to be used as context and rootValue in resolvers
   context?: any,
   rootValue?: any,
 
