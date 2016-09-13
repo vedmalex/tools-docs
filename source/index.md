@@ -13,9 +13,9 @@ In addition to a set of fully-featured GraphQL clients, the Apollo community mai
 
 ### GraphQL client tools
 
-- [graphql-anywhere](/tools/graphql-anywhere), the core schema-less GraphQL execution engine of the Apollo JavaScript Client, which lets you build your own powerful GraphQL tools and cache implementations, and works anywhere you can run JavaScript code.
+- [graphql-anywhere](https://github.com/apollostack/graphql-anywhere), the core schema-less GraphQL execution engine of the Apollo JavaScript Client, which lets you build your own powerful GraphQL tools and cache implementations, and works anywhere you can run JavaScript code.
 - Todo: add subscriptions client here
 
 ### Developer tools
 
-- [eslint-plugin-grapql](/tools/eslint-plugin-graphql), an ESLint plugin that will check your GraphQL query strings for syntax errors and schema compliance, and works with any JavaScript GraphQL client including Apollo, Relay, Lokka, and more.
+- [eslint-plugin-grapql](https://github.com/apollostack/eslint-plugin-graphql), an ESLint plugin that will check your GraphQL query strings for syntax errors and schema compliance, and works with any JavaScript GraphQL client including Apollo, Relay, Lokka, and more.
