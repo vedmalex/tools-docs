@@ -4,15 +4,23 @@ order: 201
 description: How to install Apollo Server
 ---
 
-Apollo Server is a community driven, flexible JavaScript GraphQL server for production use. You can use it with Express, Connect, HAPI and Koa.
+Apollo Server is a community driven, flexible, production-ready HTTP JavaScript GraphQL server. You can use it with all popular JavaScript web servers:
 
+- Express
+- Connect
+- HAPI
+- Koa
+- Restify
+
+Install it with:
 
 ```txt
 npm install apollo-server
 ```
 
-The following features distinguish Apollo Server from the reference implementation (express-graphql):
-- Apollo Server has a simpler interface and allows only POST requests, which makes it a bit easier to reason about what's going on.
-- Apollo Server serves GraphiQL on a separate route, giving you more flexibility to decide when and how to expose it.
+The following features distinguish Apollo Server from [express-graphql](https://github.com/graphql/express-graphql), Facebook's reference HTTP server implementation:
+
+- Apollo Server has a simpler interface and allows only one way of sending queries--POST requests--which makes it a bit easier to reason about what's going on.
+- Apollo Server serves GraphiQL on a separate route, giving you more flexibility to decide when and how to serve it.
 - Apollo Server supports [query batching](https://medium.com/apollo-stack/query-batching-in-apollo-63acfd859862) which can help reduce load on your server.
 - Apollo Server has built-in support for query whitelisting, which can make your app faster and your server more secure.
