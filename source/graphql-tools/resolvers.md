@@ -1,6 +1,6 @@
 ---
 title: Adding resolvers
-order: 205
+order: 305
 description: Add resolvers to a GraphQL schema.
 ---
 

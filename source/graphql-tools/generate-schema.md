@@ -1,6 +1,6 @@
 ---
 title: Generating a schema
-order: 204
+order: 304
 description: Generate a GraphQL schema from the concise type definition language.
 ---
 

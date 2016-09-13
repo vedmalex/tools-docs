@@ -1,6 +1,6 @@
 ---
 title: Custom Scalars
-order: 209
+order: 309
 description: Add custom scalars to a GraphQL schema.
 ---
 
