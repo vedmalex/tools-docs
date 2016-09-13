@@ -1,6 +1,6 @@
 ---
 title: Setup
-order: 302
+order: 202
 description: How to set up Apollo Server
 ---
 

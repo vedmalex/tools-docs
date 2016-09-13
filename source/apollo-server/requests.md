@@ -1,6 +1,6 @@
 ---
 title: Sending requests
-order: 303
+order: 203
 description: How to send requests to Apollo Server
 ---
 

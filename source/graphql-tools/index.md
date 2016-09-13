@@ -1,6 +1,6 @@
 ---
 title: Overview
-order: 201
+order: 301
 description: How to install GraphQL Tools.
 ---
 
