@@ -11,14 +11,14 @@ The most notable changes are:
 - `apolloExpress` no longer accepts shorthand type definitions
 - `apolloExpress` doesn't have the `resolvers`, `mocks` and `connectors` options.
 - `apolloExpress` doesn't include GraphiQL any more
-- `context` if you use connectors in your schema, don't forget to setup default `context` to at least an empty object, it can't be `undefined` in this case
+- `context`: if you use connectors in your schema, don't forget to setup default `context` to at least an empty object, it can't be `undefined` in this case
 - Apollo Server no longer accepts GET requests or parameters in the URL
 - `apolloExpress` no longer parses the HTTP body automatically
 
 
 In order to make updating from an older version of Apollo Server easier, this guide
 shows how to use `graphql-tools` together with `apolloExpress` and `graphiqlExpress` to
-replace `apolloServer`.
+replace the old `apolloServer` function.
 
 The three main differences between the old and the new approach are:
 1. generating the schema is now done with `graphql-tools`, Apollo Server only uses the finished schema.
