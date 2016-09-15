@@ -30,6 +30,9 @@ const ApolloOptions = {
 
   // function applied to each response before returning data to clients
   formatResponse?: Function,
+
+  // a boolean option that will trigger additional debug logging if execution errors occur
+  debug?: boolean
 })
 ```
 
