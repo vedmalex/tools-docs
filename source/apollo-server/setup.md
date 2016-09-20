@@ -4,7 +4,7 @@ order: 202
 description: How to set up Apollo Server
 ---
 
-Apollo Server exports the `apolloExpress`, `apolloConnect`, `ApolloHAPI` and `apolloKoa` functions which can be used to add a GraphQL HTTP endpoint to your Express, Connect, HAPI or Koa 2 server.
+Apollo Server exports the `apolloExpress`, `apolloConnect`, `apolloHapi` and `apolloKoa` functions which can be used to add a GraphQL HTTP endpoint to your Express, Connect, Hapi or Koa 2 server.
 
 <h2 id="apolloOptions">Apollo Server options</h2>
 
@@ -30,6 +30,9 @@ const ApolloOptions = {
 
   // function applied to each response before returning data to clients
   formatResponse?: Function,
+
+  // a boolean option that will trigger additional debug logging if execution errors occur
+  debug?: boolean
 })
 ```
 
@@ -82,15 +85,15 @@ app.listen(PORT);
 The `options` passed to `apolloConnect` are the same as those passed to `apolloExpress`.
 
 
-<h2 id="apolloHAPI">Using with HAPI</h2>
+<h2 id="apolloHapi">Using with Hapi</h2>
 
-The following code snippet shows how to use Apollo Server with HAPI:
+The following code snippet shows how to use Apollo Server with Hapi:
 
 ```js
-import Hapi from 'hapi';
-import { ApolloHAPI } from 'apollo-server';
+import hapi from 'hapi';
+import { apolloHapi } from 'apollo-server';
 
-const server = new Hapi.Server();
+const server = new hapi.Server();
 
 const HOST = 'localhost';
 const PORT = 3000;
@@ -101,10 +104,11 @@ server.connection({
 });
 
 server.register({
-    register: new ApolloHAPI(),
-    options: { schema: myGraphQLSchema },
-    // or options: request => ({ schema, ... })
-    routes: { prefix: '/graphql' },
+  register: apolloHapi,
+  options: {
+    path: '/graphql',
+    apolloOptions: { schema: myGraphQLSchema },
+  },
 });
 ```
 

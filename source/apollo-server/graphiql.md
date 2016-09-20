@@ -8,7 +8,7 @@ Apollo Server allows you to easily use [GraphiQL](https://github.com/graphql/gra
 
 <h2 id="graphiqlOptions">Configuring GraphiQL</h2>
 
-`graphiql<Express/Connect/HAPI/Koa>` accepts the following options object:
+`graphiql<Express/Connect/Hapi/Koa>` accepts the following options object:
 
 ```js
 const options = {
@@ -50,17 +50,21 @@ app.use('/graphiql', graphiqlConnect({
 ```
 
 
-<h2 id="graphiqlHAPI">Using with HAPI</h2>
+<h2 id="graphiqlHapi">Using with Hapi</h2>
 
-If you are using HAPI, GraphiQL can be configured as follows:
+If you are using Hapi, GraphiQL can be configured as follows:
 
 ```js
-import { GraphiQLHAPI } from 'apollo-server';
+import { graphiqlHapi } from 'apollo-server';
 
 server.register({
-    register: new GraphiQLHAPI(),
-    options: { endpointURL: '/graphql' },
-    routes: { prefix: '/graphiql' },
+  register: graphiqlHapi,
+  options: {
+    path: '/graphiql',
+    graphiqlOptions: {
+      endpointURL: '/graphql',
+    },
+  },
 });
 ```
 
