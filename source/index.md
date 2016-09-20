@@ -20,4 +20,4 @@ These are tools designed to make it easy to build a JavaScript GraphQL server us
 
 ### Developer tools
 
-- [eslint-plugin-grapql](https://github.com/apollostack/eslint-plugin-graphql), an ESLint plugin that will check your GraphQL query strings for syntax errors and schema compliance, and works with any JavaScript GraphQL client including Apollo, Relay, Lokka, and more.
+- [eslint-plugin-graphql](https://github.com/apollostack/eslint-plugin-graphql), an ESLint plugin that will check your GraphQL query strings for syntax errors and schema compliance, and works with any JavaScript GraphQL client including Apollo, Relay, Lokka, and more.
