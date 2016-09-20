@@ -55,10 +55,10 @@ app.use('/graphiql', graphiqlConnect({
 If you are using Hapi, GraphiQL can be configured as follows:
 
 ```js
-import { GraphiQLHapi } from 'apollo-server';
+import { graphiqlHapi } from 'apollo-server';
 
 server.register({
-  register: GraphiQLHapi,
+  register: graphiqlHapi,
   options: {
     path: '/graphiql',
     graphiqlOptions: {

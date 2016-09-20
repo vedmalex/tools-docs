@@ -26,10 +26,10 @@ server.register({
 ... should be written as follows for Hapi Apollo 0.3.x
 
 ```js
-import { ApolloHapi } from 'apollo-server';
+import { apolloHapi } from 'apollo-server';
 ...
 server.register({
-    register: ApolloHapi,
+    register: apolloHapi,
     options: {
       path: '/graphql',
       apolloOptions: {
