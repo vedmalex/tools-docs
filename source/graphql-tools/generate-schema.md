@@ -23,7 +23,7 @@ const jsSchema = makeExecutableSchema({
 
 `typeDefs` is a required argument and should be an array of GraphQL schema language strings or a function that takes no arguments and returns an array of GraphQL schema language strings. The order of the strings in the array is not important, but it must include a schema definition.
 
-`resolvers` is a required argument and should be an object that follows the pattern explained in the guide [section on resolvers](http://docs.apollostack.com/apollo-server/resolvers.html).
+`resolvers` is a required argument and should be an object that follows the pattern explained in the guide [section on resolvers](http://dev.apollodata.com/tools/graphql-tools/resolvers.html).
 
 `connectors` is an optional argument, which will take an object with connectors and attach them to the context of every resolve function. If this argument is provided, a `context` object must be passed to the `apollo{Express/Connect/Hapi/Koa}` call. See the [connector docs](http://docs.apollostack.com/graphql-tools/connectors.html) for more information.
 
