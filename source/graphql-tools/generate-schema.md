@@ -35,7 +35,7 @@ const jsSchema = makeExecutableSchema({
 
 The type definitions must define a query type, which means a minimal schema would look something like this:
 ```js
-const typeDefinition = [`
+const typeDefs = [`
   schema {
     query: RootQuery
   }
@@ -93,7 +93,10 @@ const SchemaDefinition = `
   }
 `;
 
-export default makeExecutableSchema([SchemaDefinition, RootQuery, Author], {});
+export default makeExecutableSchema({
+  typeDefs: [SchemaDefinition, RootQuery, Author],
+  resolvers: {},
+});
 ```
 
 This [GraphQL schema language cheat sheet](https://raw.githubusercontent.com/sogko/graphql-shorthand-notation-cheat-sheet/master/graphql-shorthand-notation-cheat-sheet.png) by Hafiz Ismail is an excellent reference for all the features of the GraphQL schema language.
