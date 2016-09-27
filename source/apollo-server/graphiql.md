@@ -12,7 +12,7 @@ Apollo Server allows you to easily use [GraphiQL](https://github.com/graphql/gra
 
 ```js
 const options = {
-  endpointUrl: String, // URL for the GraphQL endpoint this instance of GraphiQL serves
+  endpointURL: String, // URL for the GraphQL endpoint this instance of GraphiQL serves
   query?: String, // optional query to pre-populate the GraphiQL UI with
   operationName?: String, // optional operationName to pre-populate the GraphiQL UI with
   variables?: Object, // optional variables to pre-populate the GraphiQL UI with
