@@ -1,12 +1,10 @@
 ---
-title: Custom Scalars
+title: Custom scalars
 order: 309
-description: Add custom scalars to a GraphQL schema.
+description: Add custom scalars to your graphql-tools generated schema.
 ---
 
-## Custom scalars
-
-The GraphQL language comes with the following pre-defined scalar types: `String`, `Int`, `Float` and `Boolean`. While this covers most of the user cases, often you need to support custom atomic data types (e.g. Date), or you need to add validations to existing types. As a result, GraphQL allows you to define custom `scalar`s that undertake this role.
+The GraphQL specification includes the following default scalar types: `String`, `Int`, `Float` and `Boolean`. While this covers most of the user cases, often you need to support custom atomic data types (e.g. Date), or you need to add validations to existing types. As a result, GraphQL allows you to define custom scalar types that undertake this role.
 
 To define a custom scalar you simply add it to the schema with the following notation:
 
@@ -14,15 +12,17 @@ To define a custom scalar you simply add it to the schema with the following not
 scalar MyCustomScalar
 ```
 
-Consequently, you need to define the behaviour of the scalar: how it will be serialized when the value is sent to the client, and how the value is resolved when received from the client. For this purpose, each scalar needs to define three methods. In schemas defined with `graphql-tools` they are named `__serialize`, `__parseValue` and `__parseLiteral`. (If you're using `graphql-js` directly, the methods do not have the `__` prefix.)
+Afterwards, you need to define the behavior of the scalar: how it will be serialized when the value is sent to the client, and how the value is resolved when received from the client. For this purpose, each scalar needs to define three methods. In schemas defined with `graphql-tools` they are named `__serialize`, `__parseValue` and `__parseLiteral`. These are the same as the methods you would use with GraphQL.js directly, simply prefixed with a double underscore.
 
-Note that [Apollo Client does not currently support custom scalars](https://github.com/apollostack/apollo-client/issues/585), so there's no way to automatically apply the same transformations on the client side.
+Note that [Apollo Client does not currently have a way to automatically convert custom scalars](https://github.com/apollostack/apollo-client/issues/585), so there's no way to reverse the serialization on the client.
+
+## Examples
 
 Let's look at a couple of examples to demonstrate the potential of custom scalars.
 
 ### Date as a scalar
 
-The goal is to define a `Date` data type for storing `Date` values in the database. We're using a MongoDB driver that uses the native JavaScript `Date` data type. The `Date` data type can be easily serialized as a number using the [`getTime()` method](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getTime). Therefore, the GraphQL server will send and receive `Date`s as numbers. This number will be resolved to a `Date` on the server representing the date value. On the client, the user can simply create a new date from the received numeric value.
+The goal is to define a `Date` data type for returning `Date` values from the database. Let's say we're using a MongoDB driver that uses the native JavaScript `Date` data type. The `Date` data type can be easily serialized as a number using the [`getTime()` method](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getTime). Therefore, we would like our GraphQL server to send and receive `Date`s as numbers when serializing to JSON. This number will be resolved to a `Date` on the server representing the date value. On the client, the user can simply create a new date from the received numeric value.
 
 The following is the implementation of the `Date` data type. First, the schema:
 
