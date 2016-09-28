@@ -36,6 +36,8 @@ const ApolloOptions = {
 })
 ```
 
+<h3 id="options-function">Passing options as a function</h3>
+
 Alternatively, Apollo Server can accept a function which takes the request as input and returns an ApolloOptions object or a promise that resolves to one:
 
 ```js
@@ -45,6 +47,8 @@ apolloExpress(request => ({
   context: { user: request.session.user }
 }))
 ```
+
+This is useful if you need to attach objects to your context on a per-request basis, for example to initialize user data, caching tools like `dataloader`, or set up some API keys.
 
 <h2 id="apolloExpress">Using with Express</h2>
 
