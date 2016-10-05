@@ -76,6 +76,7 @@ The following code snippet shows how to use Apollo Server with Connect:
 import connect from 'connect';
 import bodyParser from 'body-parser';
 import { apolloConnect } from 'apollo-server';
+import http from 'http';
 
 const PORT = 3000;
 
@@ -84,7 +85,7 @@ var app = connect();
 app.use('/graphql', bodyParser.json());
 app.use('/graphql', apolloConnect({ schema: myGraphQLSchema }));
 
-app.listen(PORT);
+http.createServer(app).listen(PORT);
 ```
 
 The `options` passed to `apolloConnect` are the same as those passed to `apolloExpress`.
