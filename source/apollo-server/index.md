@@ -11,7 +11,7 @@ You can use Apollo Server with all popular JavaScript web servers, including Exp
 Install it with:
 
 ```txt
-npm install apollo-server
+npm install apollo-server graphql
 ```
 
 The following features distinguish Apollo Server from [express-graphql](https://github.com/graphql/express-graphql), Facebook's reference HTTP server implementation:
