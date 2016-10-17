@@ -117,7 +117,18 @@ server.register({
   },
 });
 ```
-
+apolloOptions can also be a callback or a promise:
+```
+server.register({
+  register: apolloHapi,
+  options: {
+    path: '/graphql',
+    apolloOptions: (request) => {
+      return { schema: myGraphQLSchema };
+    },
+  },
+});
+```
 
 <h2 id="apolloKoa">Using with Koa 2</h2>
 
