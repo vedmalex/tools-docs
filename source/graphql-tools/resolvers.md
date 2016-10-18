@@ -23,6 +23,8 @@ const resolveFunctions = {
   },
 };
 
+The argumemts to each resolve function are the "resolver root" and the incoming query data.   The "resolver root" is the root object in a nested query.  For example, in a Person.lastName resolver, the `root` parameter will have the `Person`.  In a `Query.x` resolver, the `root` is `null` by default, but can be set to a different default using the [`rootValue` option to the ApolloServer](http://dev.apollodata.com/tools/apollo-server/setup.html)
+
 addResolveFunctionsToSchema(schema, resolveFunctions);
 ```
 
