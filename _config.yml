@@ -27,7 +27,6 @@ sidebar_categories:
     - graphql-tools/generate-schema
     - graphql-tools/scalars
     - graphql-tools/mocking
-    - graphql-tools/connectors
     - graphql-tools/errors
     - graphql-tools/resolvers
 github_repo: apollostack/server-docs
