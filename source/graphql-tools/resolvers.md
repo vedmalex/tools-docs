@@ -22,7 +22,6 @@ const resolveFunctions = {
     },
   },
 };
-```
 
 addResolveFunctionsToSchema(schema, resolveFunctions);
 ```
