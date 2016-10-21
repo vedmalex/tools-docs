@@ -17,7 +17,8 @@ import { addResolveFunctionsToSchema } from 'graphql-tools';
 
 const resolveFunctions = {
   RootQuery: {
-    author(root, { name }){
+    author(root, { name }, context){
+      console.log("RootQuery called with context " + context +" to find " + name)
       return Author.find({ name });
     },
   },
@@ -26,9 +27,9 @@ const resolveFunctions = {
 addResolveFunctionsToSchema(schema, resolveFunctions);
 ```
 
-The argumemts to each resolve function are the "resolver root" and the incoming query data.   The "resolver root" is the root object in a nested query.  
+The argumemts to each resolve function are the "resolver root", the incoming query `data` object and the `context` object that was provided in the (ApolloOptions at server initialisation)[http://dev.apollodata.com/tools/apollo-server/setup.html#apolloOptions] (if any).
 
-For example, in a `Person.lastName` resolver, the `root` parameter will have the `Person`.  In a `Query.x` resolver, the `root` is `null` by default, but can be set to a different default using the [`rootValue` option to the ApolloServer](http://dev.apollodata.com/tools/apollo-server/setup.html).
+The "resolver root" is the root object in a nested query.  For example, in a `Person.lastName` resolver, the `root` parameter will have the `Person`.  In a `Query.x` resolver, the `root` is `null` by default, but can be set to a different default using the [`rootValue` option to the ApolloServer](http://dev.apollodata.com/tools/apollo-server/setup.html).
 
 For types which need to define additional properties, such as `resolveType` for unions and interfaces, the property can be set by prefixing it with two underscores, eg. `__resolveType` for `resolveType`:
 
