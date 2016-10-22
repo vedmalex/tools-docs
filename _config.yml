@@ -20,6 +20,7 @@ sidebar_categories:
     - graphql-tools/resolvers
     - graphql-tools/scalars
     - graphql-tools/mocking
+    - graphql-tools/connectors
     - graphql-tools/errors
   Apollo Server:
     - apollo-server/index

@@ -6,6 +6,8 @@ description: Add better error logging to your GraphQL schema.
 
 GraphQL servers can be tricky to debug. The following functions can help find error faster in many cases.
 
+## API
+
 <h3 id="forbidUndefinedInResolve" title="forbidUndefinedInResolve">
   forbidUndefinedInResolve(schema)
 </h3>
