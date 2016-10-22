@@ -1,54 +1,140 @@
 ---
-title: Adding resolvers
+title: Resolvers
 order: 305
-description: Add resolvers to a GraphQL schema.
+description: Writing resolvers with graphql-tools
 ---
 
-## Resolve functions
-In order to respond to queries, a schema needs to have resolve functions. Resolve functions cannot be included in the GraphQL schema language, so they must be added separately.
+When using `graphql-tools`, you define your field resolvers separately from the schema. Since the schema already describes all of the fields, arguments, and result types, the only thing left is a collection of functions that are called to actually execute these fields.
 
-<h3 id="addResolveFunctionsToSchema" title="addResolveFunctionsToSchema">
-  addResolveFunctionsToSchema(schema, resolveFunctions)
-</h3>
+## Resolver map
 
-`addResolveFunctionsToSchema` takes two arguments, a GraphQLSchema and an object defining resolve functions, and modifies the schema in place to. The `resolveFunctions` object should have one property for each type that has fields which need a resolve function. The following is an example of a valid resolveFunctions object:
+In order to respond to queries, a schema needs to have resolve functions for all fields. Resolve functions cannot be included in the GraphQL schema language, so they must be added separately. This collection of functions is called the "resolver map".
+
+The `resolverMap` object should have a map of resolvers for each relevant GraphQL Object Type. The following is an example of a valid `resolverMap` object:
+
 ```js
-import { addResolveFunctionsToSchema } from 'graphql-tools';
-
-const resolveFunctions = {
-  RootQuery: {
-    author(root, { name }, context){
-      console.log("RootQuery called with context " + context +" to find " + name)
-      return Author.find({ name });
+const resolverMap = {
+  Query: {
+    author(root, args, context, info){
+      return Authors.find({ name: args.name });
     },
   },
 };
-
-addResolveFunctionsToSchema(schema, resolveFunctions);
 ```
 
-The argumemts to each resolve function are the "resolver root", the incoming query `data` object and the `context` object that was provided in the (ApolloOptions at server initialisation)[http://dev.apollodata.com/tools/apollo-server/setup.html#apolloOptions] (if any).
+Note that you don't have to put all of your resolvers in one object. Refer to the ["modularizing the schema"](/tools/graphql-tools/generate-schema.html#modularizing) section to learn how to combine multiple resolver maps into one.
 
-The "resolver root" is the root object in a nested query.  For example, in a `Person.lastName` resolver, the `root` parameter will have the `Person`.  In a `Query.x` resolver, the `root` is `null` by default, but can be set to a different default using the [`rootValue` option to the ApolloServer](http://dev.apollodata.com/tools/apollo-server/setup.html).
+## Resolver function signature
 
-For types which need to define additional properties, such as `resolveType` for unions and interfaces, the property can be set by prefixing it with two underscores, eg. `__resolveType` for `resolveType`:
+Every resolver in a GraphQL.js schema accepts four positional arguments:
 
 ```js
-const resolveFunctions = {
-  SomeUnionType: {
-    __resolveType(data, context, info){
+fieldName: (root, args, context, info) => result
+```
+
+These arguments have the following meanings and conventional names:
+
+1. `root`: The result returned from the resolver on the parent field, or, in the case of a top-level `Query` field, the `rootValue` passed from the [server configuration](/tools/apollo-server/setup.html). This argument enables the nested nature of GraphQL queries.
+2. `args`: An object with the arguments passed into the field in the query. For example, if the field was called with `author(name: "Ada")`, the `args` object would be: `{ "name": "Ada" }`.
+3. `context`: This is an object shared by all resolvers in a particular query, and is used to contain per-request state, including authentication information, dataloader instances, and anything else that should be taken into account when resolving the query. If you're using Apollo Server, [read about how to set the context in the setup documentation](/tools/apollo-server/setup.html).
+4. `info`: This argument should only be used in advanced cases, but it contains information about the execution state of the query, including the field name, path to the field from the root, and more. It's only documented in the [GraphQL.js source code](https://github.com/graphql/graphql-js/blob/c82ff68f52722c20f10da69c9e50a030a1f218ae/src/type/definition.js#L489-L500).
+
+### Resolver result format
+
+Resolvers in GraphQL can return different kinds of results which are treated differently:
+
+1. `null` or `undefined` - this indicates the object could not be found. If your schema says that field is _nullable_, then the result will have a `null` value at that position. If the field is `non-null`, the result will "bubble up" to the nearest nullable field and that result will be set to `null`. This is to ensure that the API consumer never gets a `null` value when they were expecting a result.
+2. An array - this is only valid if the schema indicates that the result of a field should be a list. The sub-selection of the query will run once for every item in this array.
+3. A promise - resolvers often do asynchronous actions like fetching from a database or backend API, so they can return promises. This can be combined with arrays, so a resolver can return a promise that resolves to an array, or an array of promises, and both are handled correctly.
+4. A scalar or object value - a resolver can also return any other kind of value, which doesn't have any special meaning but is simply passed down into any nested resolvers, as described in the next section.
+
+### Resolver root argument
+
+The first argument to every resolver, `root`, can be a bit confusing at first, but it makes sense when you consider what a GraphQL query looks like:
+
+```graphql
+query {
+  getAuthor(id: 5){
+    name
+    posts {
+      title
+      author {
+        name # this will be the same as the name above
+      }
+    }
+  }
+}
+```
+
+You can think of every GraphQL query as a tree of function calls, as explained in detail in the [GraphQL explained blog post](https://dev-blog.apollodata.com/graphql-explained-5844742f195e#.fq5jjdw7t). So in this case:
+
+1. `root` in `Query.getAuthor` will be whatever the server configuration passed for `rootValue`.
+2. `root` in `Author.name` and `Author.posts` will be the result from `getAuthor`, likely an Author object from the backend.
+3. `root` in `Post.title` and `Post.author` will be one item from the `posts` result array.
+4. `root` in `Author.name` is the result from the above `Post.author` call.
+
+Basically, it's just every resolver function being called in a nested way according to the layout of the query.
+
+### Default resolver
+
+You don't need to specify resolvers for _every_ type in your schema. If you don't specify a resolver, GraphQL.js falls back to a default one, which does the following:
+
+1. Returns a property from `root` with the relevant field name, or
+2. Calls a function on `root` with the relevant field name and passes the query arguments into that function
+
+So, in the example query above, the `name` and `title` fields wouldn't need a resolver if the Post and Author objects retrieved from the backend already had those fields.
+
+## Unions and interfaces
+
+When you have a field in your schema that returns a union or interface type, you will need to specify an extra `__resolveType` field in your resolver map, which tells the GraphQL executor which type the result is, out of the available options.
+
+For example, if you have a `Vehicle` interface type with members `Airplane` and `Car`:
+
+```js
+const resolverMap = {
+  Vehicle: {
+    __resolveType(root, context, info){
       if(data.wingspan){
-        return info.schema.getType('Airplane');
+        return 'Airplane';
       }
-      if(data.horsepower){
-        return info.schema.getType('Car');
+
+      if(data.licensePlate){
+        return 'Car';
       }
+
       return null;
     },
   },
 };
 ```
-Note that if the types were defined in GraphQL schema language, the `info` argument to `resolveType` must be used to get a reference to the actual type, eg. `return info.schema.getType("Person")`. This may be changed in the future to support returning just the name of the type, eg. `return "Person"`.
+
+> Note: Returning the type name as a string from `__resolveType` is only supported starting with GraphQL.js 0.7.2. In previous versions, you had to get a reference using `info.schema.getType('Car')`.
+
+## API
+
+In addition to using a resolver map with `makeExecutableSchema`, you can use it with any GraphQL.js schema by importing the following function from `graphql-tools`:
+
+<h3 id="addResolveFunctionsToSchema" title="addResolveFunctionsToSchema">
+  addResolveFunctionsToSchema(schema, resolverMap)
+</h3>
+
+`addResolveFunctionsToSchema` takes two arguments, a GraphQLSchema and a resolver map, and modifies the schema in place by attaching the resolvers to the relevant types.
+
+```js
+import { addResolveFunctionsToSchema } from 'graphql-tools';
+
+const resolverMap = {
+  RootQuery: {
+    author(root, { name }, context){
+      console.log("RootQuery called with context " +
+        context + " to find " + name);
+      return Author.find({ name });
+    },
+  },
+};
+
+addResolveFunctionsToSchema(schema, resolverMap);
+```
 
 <h3 id="addSchemaLevelResolveFunction" title="addSchemaLevelResolveFunction">
   addSchemaLevelResolveFunction(schema, rootResolveFunction)
