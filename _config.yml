@@ -14,21 +14,19 @@ versions:
 sidebar_categories:
   null:
     - index
+  GraphQL Tools:
+    - graphql-tools/index
+    - graphql-tools/generate-schema
+    - graphql-tools/resolvers
+    - graphql-tools/scalars
+    - graphql-tools/mocking
+    - graphql-tools/errors
   Apollo Server:
     - apollo-server/index
     - apollo-server/setup
     - apollo-server/requests
     - apollo-server/graphiql
     - apollo-server/migration
-  GraphQL Tools:
-    - graphql-tools/index
-#    - graphql-tools/guide
-#    - graphql-tools/tools
-    - graphql-tools/generate-schema
-    - graphql-tools/scalars
-    - graphql-tools/mocking
-    - graphql-tools/errors
-    - graphql-tools/resolvers
 github_repo: apollostack/server-docs
 content_root: source
 

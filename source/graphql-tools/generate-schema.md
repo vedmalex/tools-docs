@@ -4,13 +4,13 @@ order: 304
 description: Generate a GraphQL schema from the concise type definition language.
 ---
 
-The graphql-tools package allows you to create a GraphQLSchema instance from GraphQL schema language by using the function `makeExecutableSchema`.
+The graphql-tools package allows you to create a GraphQL.js GraphQLSchema instance from GraphQL schema language using the function `makeExecutableSchema`.
 
 <h2 id="example">Example</h2>
 
 The ["Hello World" server](https://github.com/apollostack/frontpage-server) which powers the main Apollo Client examples is a great place to start if you're looking for a minimal codebase powered by `graphql-tools`.
 
-It defines a schema as a GraphQL type language string:
+When using `graphql-tools`, you describe the schema as a GraphQL type language string:
 
 ```js
 
@@ -50,7 +50,7 @@ schema {
 `;
 ```
 
-Then defines resolvers as a nested object that includes types and field names which map to functions:
+Then you define resolvers as a nested object that maps type and field names to resolver functions:
 
 ```js
 const resolveFunctions = {
@@ -111,7 +111,9 @@ const Author = `
   }
 `;
 
-// we export have to export Author and all types it depends on in order to make it reusable
+// we export Author and all types it depends on
+// in order to make sure we don't forget to include
+// a dependency
 export default () => [Author, Book];
 ```
 
@@ -167,7 +169,7 @@ const resolvers = merge(rootResolvers, gitHubResolvers, sqlResolvers);
 
 <h2 id="schema-language">Learning the GraphQL schema language</h2>
 
-The official documentation on graphql.org now has a section about GraphQL schemas which explains all of the different schema features and how to use them with the schema language.
+The official documentation on graphql.org now has [a section about GraphQL schemas](http://graphql.org/learn/schema/) which explains all of the different schema features and how to use them with the schema language.
 
 The type definitions must define a query type, which means a minimal schema would look something like this:
 ```js
@@ -196,21 +198,22 @@ import { makeExecutableSchema } from 'graphql-tools';
 const jsSchema = makeExecutableSchema({
   typeDefs,
   resolvers,
-  connectors,
   logger,
   allowUndefinedInResolve = false, // optional
   resolverValidationOptions = {}, // optional
 });
 ```
 
-`typeDefs` is a required argument and should be an array of GraphQL schema language strings or a function that takes no arguments and returns an array of GraphQL schema language strings. The order of the strings in the array is not important, but it must include a schema definition.
+- `typeDefs` is a required argument and should be an array of GraphQL schema language strings or a function that takes no arguments and returns an array of GraphQL schema language strings. The order of the strings in the array is not important, but it must include a schema definition.
 
-`resolvers` is a required argument and should be an object that follows the pattern explained in the guide [section on resolvers](http://dev.apollodata.com/tools/graphql-tools/resolvers.html).
+- `resolvers` is a required argument and should be an object that follows the pattern explained in [article on resolvers](http://dev.apollodata.com/tools/graphql-tools/resolvers.html).
 
-`connectors` is an optional argument, which will take an object with connectors and attach them to the context of every resolve function. If this argument is provided, a `context` object must be passed to the `apollo{Express/Connect/Hapi/Koa}` call. See the [connector docs](http://docs.apollostack.com/graphql-tools/connectors.html) for more information.
+- `logger` is an optional argument, which can be used to print errors to the server console that are usually swallowed by GraphQL. The `logger` argument should be an object with a `log` function, eg. `const logger = { log: (e) => console.log(e) }`
 
-`logger` is an optional argument, which can be used to print errors to the server console that are usually swallowed by GraphQL. The `logger` argument should be an object with a `log` function, eg. `const logger = { log: (e) => console.log(e) }`
+- `allowUndefinedInResolve` is an optional argument, which is `false` by default, and causes your resolve function to throw an error, if they return undefined. This can help make debugging easier. To get the default behavior of GraphQL, set this option to `true`.
 
-`allowUndefinedInResolve` is an optional argument, which is `false` by default, and causes your resolve function to throw an error, if they return undefined. This can help make debugging easier. To get the default behavior of GraphQL, set this option to `true`.
+- `resolverValidationOptions` is an optional argument which accepts an object of the following shape: `{ requireResolversForArgs, requireResolversForNonScalar }`.
 
-`resolverValidationOptions` is an optional argument which accepts an object of the following shape: `{ requireResolversForArgs, requireResolversForNonScalar }`. If set to true, `requireResolversForArgs` will cause `makeExecutableSchema` to throw an error, if no resolve function is defined for a field that has arguments. Similarly, `requireResolversForNonScalar` will cause `makeExecutableSchema` to throw an error if a non-scalar field has no resolver defined. By default, both of these are true, which can help catch errors faster. To get the normal behavior of GraphQL, set both of them to `false`.
+    - `requireResolversForArgs` will cause `makeExecutableSchema` to throw an error if no resolve function is defined for a field that has arguments.
+
+    - `requireResolversForNonScalar` will cause `makeExecutableSchema` to throw an error if a non-scalar field has no resolver defined. By default, both of these are true, which can help catch errors faster. To get the normal behavior of GraphQL, set both of them to `false`.
