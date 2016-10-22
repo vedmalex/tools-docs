@@ -165,6 +165,25 @@ const rootResolvers = { ... };
 const resolvers = merge(rootResolvers, gitHubResolvers, sqlResolvers);
 ```
 
+<h2 id="schema-language">Learning the GraphQL schema language</h2>
+
+The official documentation on graphql.org now has a section about GraphQL schemas which explains all of the different schema features and how to use them with the schema language.
+
+The type definitions must define a query type, which means a minimal schema would look something like this:
+```js
+const typeDefs = [`
+  schema {
+    query: RootQuery
+  }
+
+  type RootQuery {
+    aNumber: Int
+  }
+`];
+```
+
+This [GraphQL schema language cheat sheet](https://raw.githubusercontent.com/sogko/graphql-shorthand-notation-cheat-sheet/master/graphql-shorthand-notation-cheat-sheet.png) by Hafiz Ismail is an excellent reference for all the features of the GraphQL schema language.
+
 <h2 id="api">API</h2>
 
 <h3 id="makeExecutableSchema" title="makeExecutableSchema">makeExecutableSchema(options)</h3>
@@ -195,18 +214,3 @@ const jsSchema = makeExecutableSchema({
 `allowUndefinedInResolve` is an optional argument, which is `false` by default, and causes your resolve function to throw an error, if they return undefined. This can help make debugging easier. To get the default behavior of GraphQL, set this option to `true`.
 
 `resolverValidationOptions` is an optional argument which accepts an object of the following shape: `{ requireResolversForArgs, requireResolversForNonScalar }`. If set to true, `requireResolversForArgs` will cause `makeExecutableSchema` to throw an error, if no resolve function is defined for a field that has arguments. Similarly, `requireResolversForNonScalar` will cause `makeExecutableSchema` to throw an error if a non-scalar field has no resolver defined. By default, both of these are true, which can help catch errors faster. To get the normal behavior of GraphQL, set both of them to `false`.
-
-The type definitions must define a query type, which means a minimal schema would look something like this:
-```js
-const typeDefs = [`
-  schema {
-    query: RootQuery
-  }
-
-  type RootQuery {
-    aNumber: Int
-  }
-`];
-```
-
-This [GraphQL schema language cheat sheet](https://raw.githubusercontent.com/sogko/graphql-shorthand-notation-cheat-sheet/master/graphql-shorthand-notation-cheat-sheet.png) by Hafiz Ismail is an excellent reference for all the features of the GraphQL schema language.
