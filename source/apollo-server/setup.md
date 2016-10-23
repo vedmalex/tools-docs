@@ -38,7 +38,7 @@ const GraphQLOptions = {
 
 <h3 id="options-function">Passing options as a function</h3>
 
-Alternatively, GraphQL Server can accept a function which takes the request as input and returns an GraphQLOptions object or a promise that resolves to one:
+Alternatively, GraphQL Server can accept a function which takes the request as input and returns a GraphQLOptions object or a promise that resolves to one:
 
 ```js
 // example options function (for express)
@@ -116,13 +116,15 @@ server.register({
   },
 });
 ```
-apolloOptions can also be a callback or a promise:
-```
+
+`graphqlOptions` can also be a callback or a promise:
+
+```js
 server.register({
-  register: apolloHapi,
+  register: graphqlHapi,
   options: {
     path: '/graphql',
-    apolloOptions: (request) => {
+    graphqlOptions: (request) => {
       return { schema: myGraphQLSchema };
     },
   },
