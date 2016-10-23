@@ -1,10 +1,10 @@
 ---
 title: GraphiQL
 order: 204
-description: How to set up GraphiQL with Apollo Server
+description: How to set up GraphiQL with GraphQL Server
 ---
 
-Apollo Server allows you to easily use [GraphiQL](https://github.com/graphql/graphiql). Here's how:
+GraphQL Server allows you to easily use [GraphiQL](https://github.com/graphql/graphiql). Here's how:
 
 <h2 id="graphiqlOptions">Configuring GraphiQL</h2>
 
@@ -20,7 +20,7 @@ const options = {
 }
 ```
 
-Apollo Server's `graphiql` middleware does not run any query passed to it, it simply renders it in the UI.
+GraphQL Server's `graphiql` middleware does not run any query passed to it, it simply renders it in the UI.
 To actually execute the query, the user must submit it via the GraphiQL UI, which will
 send the request to the GraphQL endpoint specified with `endpointURL`.
 
@@ -29,7 +29,7 @@ send the request to the GraphQL endpoint specified with `endpointURL`.
 If you are using Express, GraphiQL can be configured as follows:
 
 ```js
-import { graphiqlExpress } from 'apollo-server';
+import { graphiqlExpress } from 'graphql-server-express';
 
 app.use('/graphiql', graphiqlExpress({
   endpointURL: '/graphql',
@@ -42,7 +42,7 @@ app.use('/graphiql', graphiqlExpress({
 If you are using Connect, GraphiQL can be configured as follows:
 
 ```js
-import { graphiqlConnect } from 'apollo-server';
+import { graphiqlConnect } from 'graphql-server-express';
 
 app.use('/graphiql', graphiqlConnect({
   endpointURL: '/graphql',
@@ -55,7 +55,7 @@ app.use('/graphiql', graphiqlConnect({
 If you are using Hapi, GraphiQL can be configured as follows:
 
 ```js
-import { graphiqlHapi } from 'apollo-server';
+import { graphiqlHapi } from 'graphql-server-hapi';
 
 server.register({
   register: graphiqlHapi,
@@ -74,7 +74,7 @@ server.register({
 If you are using Koa 2, GraphiQL can be configured as follows:
 
 ```js
-import { graphiqlKoa } from 'apollo-server';
+import { graphiqlKoa } from 'graphql-server-koa';
 
 router.get('/graphiql', graphiqlKoa({ endpointURL: '/graphql' }));
 ```
