@@ -27,6 +27,7 @@ sidebar_categories:
     - graphql-server/setup
     - graphql-server/requests
     - graphql-server/graphiql
+    - graphql-server/migration-graphql-server
     - graphql-server/migration-hapi
     - graphql-server/migration
 github_repo: apollostack/tools-docs
