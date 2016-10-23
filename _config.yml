@@ -22,13 +22,13 @@ sidebar_categories:
     - graphql-tools/mocking
     - graphql-tools/connectors
     - graphql-tools/errors
-  Apollo Server:
-    - apollo-server/index
-    - apollo-server/setup
-    - apollo-server/requests
-    - apollo-server/graphiql
-    - apollo-server/migration
-github_repo: apollostack/server-docs
+  GraphQL Server:
+    - graphql-server/index
+    - graphql-server/setup
+    - graphql-server/requests
+    - graphql-server/graphiql
+    - graphql-server/migration
+github_repo: apollostack/tools-docs
 content_root: source
 
 social_links:
