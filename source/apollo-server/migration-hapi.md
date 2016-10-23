@@ -4,7 +4,7 @@ order: 206
 description: How to migrate to Apollo Server 0.3 from 0.2.
 ---
 
-> Note: This guide assumes you were previously up to date with `apollo-server` series `0.2.x`. If you are currently importing `apolloServer` from `graphql-tools`, consult the [previous migration guide](migration.md).
+> Note: This guide assumes you were previously up to date with `apollo-server` series `0.2.x`. If you are currently using `0.1`, consult the [previous migration guide](migration.md).
 
 Version 0.3.0 of Apollo Server contains a couple of breaking changes in the Hapi plugin API.
 The most notable changes are:
