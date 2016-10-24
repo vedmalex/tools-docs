@@ -139,7 +139,7 @@ The following code snippet shows how to use GraphQL Server with Koa:
 import koa from 'koa';
 import koaRouter from 'koa-router';
 import koaBody from 'koa-bodyparser';
-import { graphqlKoa } from 'apollo-server';
+import { graphqlKoa } from 'graphql-server-koa';
 
 const app = new koa();
 const router = new koaRouter();
